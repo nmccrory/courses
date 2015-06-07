@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<?php 
-	foreach($courses as $course){
-		echo $course['name'];
-	} 
-?>
 <html>
 	<head>
 		<link rel="stylesheet" href="assets/css/materialize.css">
@@ -13,7 +8,6 @@
 	<body>
 		<div class='row'>
 			<div class="col s12">
-				<?php var_dump($name); ?>
 				<h5>Add a new course</h5>
 				<form action="process" method="post">
 					<input type="hidden" name="action" value="addcourse">
@@ -43,9 +37,12 @@
 					</thead>
 					<tbody>
 						<?php foreach($courses as $course):?>
-							<td><?=$course['name']?></td>
-							<td><?=$course['description']?></td>
-							<td><?=$course['updated_at']?></td>
+							<tr>
+								<td><?=$course['name']?></td>
+								<td><?=$course['description']?></td>
+								<td><?=$course['updated_at']?></td>
+								<td><a href=<?php echo "'courses/destroy/{$course['id']}'";?>>remove</a></td>
+							</tr>
 						<?php endforeach; ?>
 					</tbody>
 				</table>
