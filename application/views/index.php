@@ -9,6 +9,11 @@
 		<div class='row'>
 			<div class="col s12">
 				<h5>Add a new course</h5>
+				<?php  if($this->session->flashdata('errors')):
+					foreach($this->session->flashdata('errors') as $error): ?>
+						<p><?=$error?></p>
+					<?php endforeach; 
+					endif;?>
 				<form action="process" method="post">
 					<input type="hidden" name="action" value="addcourse">
 					<div class="input-field col s6">

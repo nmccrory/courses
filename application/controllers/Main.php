@@ -22,16 +22,23 @@ class Main extends CI_Controller {
 		}else{
 			$errors[] = 'Course name must be at least 15 characters';
 		}
-		//setting up description
-		$description = $this->input->post('description');
-		$this->load->model('Course');
+		if($this->input->post('description')){
+			$description = $this->input->post('description');
+		}else{
+			$errors[] = 'Course must contain a description';
+		}
+
+		
 		if(count($errors) > 0){
 			$this->session->set_flashdata('errors', $errors);
+			redirect('/');
+		}else{
+			$this->load->model('Course');
+			$postinfo = array('name'=>$name, 'description'=>$description);
+			$this->Course->add_courses($postinfo);
+			$this->load->view('index', array('courses'=>$this->Course->get_courses()));
 		}
-		$postinfo = array('name'=>$name, 'description'=>$description);
-		$this->Course->add_courses($postinfo);
-		$course_results = $this->Course->get_courses();
-		$this->load->view('index', array('courses'=>$course_results));
+		
 	}
 
 	public function remove()
